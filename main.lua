@@ -48,11 +48,11 @@ Heading: setFillColor( 1, 1, 1 )
 local DiameterTextField = native.newTextField( 160, 270, 200, 25)
 DiameterTextField.id = "Diameter Input"
 
-local CircumferenceAnswer = display.newText( "", 160, 300, "Futura", 30)
+local CircumferenceAnswer = display.newText( "", 160, 300, "Futura", 15)
 CircumferenceAnswer.id = "CircumferenceAnswer"
 CircumferenceAnswer: setFillColor( 1, 1, 1 )
 
-local AreaText = display.newText( "", 160, 300, "Futura", 30)
+local AreaText = display.newText( "", 160, 320, "Futura", 15)
 AreaText.id = "Area Result"
 AreaText: setFillColor( 1, 1, 1 )
 
@@ -71,46 +71,25 @@ local DoneButton = display.newText( "Done", 160, 430, "Futura", 40)
 DoneButton.id = "Done"
 DoneButton: setFillColor( 0, 0, 0 )
 
---This will calculate the radius from the diameter that is inputed. It will later be used in the calculations for the area and circumference.
-local function radius()
+local function Calculate ( event )
 
-	local Diameter
-	local Radius
-
-	Diameter = DiameterTextField.text
-
-	Radius = Diameter / 2
-
-	return true
-
-end
-
-local function Circumference( event )
-
+			local Diameter
 			local Radius
 			local Circumference
-
-			Radius = radius(DiameterTextField.text)
-
-			Circumference = 2 * math.pi * Radius
-
-			CircumferenceAnswer = "The Circumference is" .. Circumference
-
-			return true
-end
-
-local function Area( event )
-
-			local Radius
 			local Area
 
-			Radius = radius(DiameterTextField.text)
+			Diameter = DiameterTextField.text
 
-			Area = math.pi * (Radius ^ 2)
+			Radius = Diameter / 2
 
-			AreaText = "The Area is" .. Radius
+			Circumference = 2 * math.pi * Radius
+			Area = math.pi * Radius ^ 2
+
+			AreaText.text = "The Area is " .. Area
+			CircumferenceAnswer.text = "The Circumference is " .. Circumference
 
 			return true
 end
 
-Button1:addEventListener( "touch", Circumference, Area)
+
+Button1:addEventListener( "touch", Calculate)
